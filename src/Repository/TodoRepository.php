@@ -18,6 +18,7 @@ class TodoRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Todo::class);
         $this->manager = $manager;
+        //investigar por qué tengo que usar manager****!IMPORTANT
     }
 
     //Lista de todos los to-dos

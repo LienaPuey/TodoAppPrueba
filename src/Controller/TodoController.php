@@ -38,5 +38,29 @@ use Symfony\Component\Routing\Annotation\Route;
         $id = $this->todoRepository->saveTodo($title, $description);
         return new JsonResponse(['status' => 'Created', 'id' => $id], Response::HTTP_CREATED);
     }
- }
+ 
+
+
+        /**
+      * @Route("list", name="list_todo", methods={"GET"})
+        */
+
+    public function list(Request $request): JsonResponse
+     {
+         //lista de todos los to-dos creados
+         
+        $todos = $this->todoRepository->listAll();
+        $data= [];
+        foreach ($todos as $todo) {
+            $data[]= [
+                "id"=> $todo->getid(),
+                "title"=>$todo->getTitle(),
+                "description"=>$todo->getDescription(),
+                "isDone"=>$todo->getIsDone()
+            ];
+            
+        }
+        return new JsonResponse(['data'=>$data], Response::HTTP_OK);
+     }
+    }
  ?>

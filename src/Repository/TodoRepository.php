@@ -32,10 +32,11 @@ class TodoRepository extends ServiceEntityRepository
         $newTodo
             ->setTitle($title)
             ->setDescription($description)
-            ->setIsDone($isDone);
+            ->setIsDone(false);
 
         $this->manager->persist($newTodo);
         $this->manager->flush();
+        return $newTodo->getId();
     }
     // /**
     //  * @return Todo[] Returns an array of Todo objects

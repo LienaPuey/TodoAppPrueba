@@ -5,7 +5,7 @@ namespace App\Repository;
 use App\Entity\Todo;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-
+use Doctrine\ORM\EntityManagerInterface;
 /**
  * @method Todo|null find($id, $lockMode = null, $lockVersion = null)
  * @method Todo|null findOneBy(array $criteria, array $orderBy = null)
@@ -14,11 +14,29 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class TodoRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $manager) 
     {
         parent::__construct($registry, Todo::class);
+        $this->manager = $manager;
     }
 
+    //Lista de todos los to-dos
+    public function listAll(){
+        return $this->findAll();
+    }
+
+    //Guardar nuevo to-do
+    public function saveTodo($title, $description){
+        $newTodo = new Todo();
+
+        $newTodo
+            ->setTitle($title)
+            ->setDescription($description)
+            ->setIsDone($isDone);
+
+        $this->manager->persist($newTodo);
+        $this->manager->flush();
+    }
     // /**
     //  * @return Todo[] Returns an array of Todo objects
     //  */
@@ -48,3 +66,4 @@ class TodoRepository extends ServiceEntityRepository
     }
     */
 }
+?>

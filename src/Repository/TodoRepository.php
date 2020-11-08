@@ -39,6 +39,16 @@ class TodoRepository extends ServiceEntityRepository
         $this->manager->flush();
         return $newTodo->getId();
     }
+
+    public function delete($id){
+        $todo = $this->find($id);
+        if(empty($todo)){
+            return false;
+        }
+        $this->manager->remove($todo);
+        $this->manager->flush();
+        return true;
+    }
     // /**
     //  * @return Todo[] Returns an array of Todo objects
     //  */

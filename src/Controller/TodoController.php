@@ -21,6 +21,8 @@ use Symfony\Component\Routing\Annotation\Route;
         $this->todoRepository = $todoRepository;
     }
     
+
+    //CREAR TO-DO
     /**
      * @Route ("todo", name="add_todo", methods = {"POST"})
      */
@@ -40,7 +42,7 @@ use Symfony\Component\Routing\Annotation\Route;
     }
  
 
-
+    //DEVOLVER LISA DE TO-DOS CREADOS
         /**
       * @Route("list", name="list_todo", methods={"GET"})
         */
@@ -48,11 +50,11 @@ use Symfony\Component\Routing\Annotation\Route;
     public function list(Request $request): JsonResponse
      {
          //lista de todos los to-dos creados
-         
+
         $todos = $this->todoRepository->listAll();
-        $data= [];
+        $data = [];
         foreach ($todos as $todo) {
-            $data[]= [
+            $data[] = [
                 "id"=> $todo->getid(),
                 "title"=>$todo->getTitle(),
                 "description"=>$todo->getDescription(),
@@ -62,5 +64,34 @@ use Symfony\Component\Routing\Annotation\Route;
         }
         return new JsonResponse(['data'=>$data], Response::HTTP_OK);
      }
+
+
+     //(extra hacer un update to-do) not required
+
+     //BORRAR TO-DO
+    /**
+     * @Route("list/{id}", name="delete_todo", methods={"DELETE"})
+     */
+
+     public function delete(Request $request): JsonResponse
+     {
+        $data = json_decode($request->getContent(), true);
+        $id = $data['id'];
+
+        if (empty($id)) {
+            throw new NotFoundHttpException("Expecting an id for the to-do to delete");            
+        }
+        $todo = $this->todoRepository->delete($id);
+        if (empty($todo)) {
+            throw new NotFoundException("Id not found");
+        }
+        return new JsonResponse(['removed' => 'true'], Response::HTTP_OK);
+     }
+
+
+
+
+    
+
     }
  ?>

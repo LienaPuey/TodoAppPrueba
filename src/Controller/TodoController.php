@@ -65,6 +65,25 @@ use Symfony\Component\Routing\Annotation\Route;
         return new JsonResponse(['data'=>$data], Response::HTTP_OK);
      }
 
+     //CAMBIAR ESTADO DEL TO-DO A HECHO O POR HACER
+
+       /**
+     * @Route("toggle", name="toggle_todo", methods={"PUT"})
+     */
+    public function toggle(Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+        $id = $data['id'];
+        if (empty($id)) {
+            throw new NotFoundHttpException ("Expecting an id for the to-do to toggle");
+        }
+        $todo = $this->todoRepository->toggle($id);
+        if (empty($todo)) {
+            throw new NotFoundHttpException("Id not found");
+        }
+        return new JsonResponse(['status' =>$todo->getisDone()], Response::HTTP_OK);
+    }       
+
 
      //(extra hacer un update to-do) not required
 
@@ -80,7 +99,7 @@ use Symfony\Component\Routing\Annotation\Route;
         }
         $todo = $this->todoRepository->delete($id);
         if (empty($todo)) {
-            throw new NotFoundException("Id not found");
+            throw new NotFoundHttpException("Id not found");
         }
         return new JsonResponse(['removed' => true], Response::HTTP_OK);
      }

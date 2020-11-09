@@ -40,6 +40,18 @@ class TodoRepository extends ServiceEntityRepository
         return $newTodo->getId();
     }
 
+    public function toggle($id){
+        $todo = $this->find($id);
+        if (empty($todo)) {
+            return null;
+        }
+        $todo->setIsDone(!$todo->getIsDone());
+        $this->manager->persist($todo);
+        $this->manager->flush();
+        return $todo;
+        //Añadir timstamp
+    }
+
     public function delete($id){
         $todo = $this->find($id);
         if(empty($todo)){

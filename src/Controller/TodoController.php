@@ -73,11 +73,8 @@ use Symfony\Component\Routing\Annotation\Route;
      * @Route("list/{id}", name="delete_todo", methods={"DELETE"})
      */
 
-     public function delete(Request $request): JsonResponse
+     public function delete(int $id): JsonResponse
      {
-        $data = json_decode($request->getContent(), true);
-        $id = $data['id'];
-
         if (empty($id)) {
             throw new NotFoundHttpException("Expecting an id for the to-do to delete");            
         }
@@ -85,13 +82,10 @@ use Symfony\Component\Routing\Annotation\Route;
         if (empty($todo)) {
             throw new NotFoundException("Id not found");
         }
-        return new JsonResponse(['removed' => 'true'], Response::HTTP_OK);
+        return new JsonResponse(['removed' => true], Response::HTTP_OK);
      }
 
-
-
-
-    
+  
 
     }
  ?>

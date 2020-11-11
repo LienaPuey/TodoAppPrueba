@@ -6,6 +6,7 @@ use App\Entity\Todo;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
+use DateTime;
 /**
  * @method Todo|null find($id, $lockMode = null, $lockVersion = null)
  * @method Todo|null findOneBy(array $criteria, array $orderBy = null)
@@ -27,13 +28,14 @@ class TodoRepository extends ServiceEntityRepository
     }
 
     //Guardar nuevo to-do
-    public function saveTodo($title, $description){
+    public function saveTodo($title, $description, $timeNow){
         $newTodo = new Todo();
 
         $newTodo
             ->setTitle($title)
             ->setDescription($description)
-            ->setIsDone(false);
+            ->setIsDone(false)
+            ->setAddTime($timeNow);
 
         $this->manager->persist($newTodo);
         $this->manager->flush();
@@ -45,11 +47,14 @@ class TodoRepository extends ServiceEntityRepository
         if (empty($todo)) {
             return null;
         }
-        $todo->setIsDone(!$todo->getIsDone());
+        $todo
+            ->setIsDone(!$todo->getIsDone())
+            ->setDoneTime($this->timeNow());
+
         $this->manager->persist($todo);
         $this->manager->flush();
         return $todo;
-        //Añadir timstamp
+       
     }
 
     public function delete($id){
@@ -60,6 +65,12 @@ class TodoRepository extends ServiceEntityRepository
         $this->manager->remove($todo);
         $this->manager->flush();
         return true;
+    }
+
+    public function timeNow(){
+        $addDate = new DateTime("now");
+        $addDate->format("r");
+        return $addDate;
     }
     // /**
     //  * @return Todo[] Returns an array of Todo objects

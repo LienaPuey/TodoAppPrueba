@@ -32,6 +32,16 @@ class Todo
      */
     private $isDone;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $addTime;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $doneTime;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +79,30 @@ class Todo
     public function setIsDone(bool $isDone): self
     {
         $this->isDone = $isDone;
+
+        return $this;
+    }
+
+    public function getAddTime(): ?\DateTimeInterface
+    {
+        return $this->addTime;
+    }
+
+    public function setAddTime(\DateTimeInterface $addTime): self
+    {
+        $this->addTime = $addTime;
+
+        return $this;
+    }
+
+    public function getDoneTime(): ?\DateTimeInterface
+    {
+        return $this->doneTime;
+    }
+
+    public function setDoneTime(?\DateTimeInterface $doneTime): self
+    {
+        $this->doneTime = $doneTime;
 
         return $this;
     }

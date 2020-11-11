@@ -33,11 +33,12 @@ use Symfony\Component\Routing\Annotation\Route;
 
         $title = $data['title'];
         $description = $data['description'];
+        $timeNow = $this->todoRepository->timeNow();
         
         if (empty($title)) {
             throw new NotFoundHttpException('Expecting a title for the todo');    
         }
-        $id = $this->todoRepository->saveTodo($title, $description);
+        $id = $this->todoRepository->saveTodo($title, $description,$timeNow);
         return new JsonResponse(['status' => 'Created', 'id' => $id], Response::HTTP_CREATED);
     }
  
@@ -58,7 +59,8 @@ use Symfony\Component\Routing\Annotation\Route;
                 "id"=> $todo->getid(),
                 "title"=>$todo->getTitle(),
                 "description"=>$todo->getDescription(),
-                "isDone"=>$todo->getIsDone()
+                "isDone"=>$todo->getIsDone(),
+                "addTime"=>$todo->getAddTime()
             ];
             
         }
@@ -66,7 +68,7 @@ use Symfony\Component\Routing\Annotation\Route;
      }
 
      //CAMBIAR ESTADO DEL TO-DO A HECHO O POR HACER
-
+     
        /**
      * @Route("toggle", name="toggle_todo", methods={"PUT"})
      */
@@ -104,7 +106,6 @@ use Symfony\Component\Routing\Annotation\Route;
         return new JsonResponse(['removed' => true], Response::HTTP_OK);
      }
 
-  
 
     }
  ?>

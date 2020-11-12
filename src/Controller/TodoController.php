@@ -24,7 +24,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
     //CREAR TO-DO
     /**
-     * @Route ("todo", name="add_todo", methods = {"POST"})
+     * @Route ("add", name="add_todo", methods = {"POST"})
      */
     public function add(Request $request): JsonResponse
     {

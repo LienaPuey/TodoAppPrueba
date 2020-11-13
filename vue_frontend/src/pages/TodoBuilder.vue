@@ -1,6 +1,6 @@
 <template>
     <div>
-        <List >
+        <List class="todo-list">
             <Item 
                 v-for="item in filteredTodos" 
                 v-bind:key="item.id">
@@ -9,7 +9,7 @@
                     <span slot="description">{{item.description}}</span>
 
                     <Button 
-                        v-bind:class="{red:!item.isDone, green:item.isDone}" 
+                        class="app-button"
                         slot="leftBtn" 
                         @click="toggleTodo(item.id)">{{item.isDone}}
                     </Button>
@@ -20,7 +20,7 @@
                     {{item.doneTime.date}}</span>
 
                     <Button 
-                        v-bind:class="{red:true}" 
+                        class="app-button"
                         slot="rightBtn"  
                         @click="deleteTodo(item.id)">Delete
                     </Button>

@@ -1,5 +1,5 @@
 <template>
-    <div class="listContainer">
+    <div class="todo-list">
         <slot></slot>
     </div>
 </template>
@@ -11,8 +11,7 @@ export default {
 </script>
 
 <style scoped>
-    .listContainer{
-        display:flex;
-        flex-direction: column;
-    }
+.todo-list {
+    flex: 1;
+}
 </style>

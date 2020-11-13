@@ -35,9 +35,9 @@ use Symfony\Component\Routing\Annotation\Route;
         $description = $data['description'];
         $timeNow = $this->todoRepository->timeNow();
         
-        // if (empty($title)) {
-        //     throw new NotFoundHttpException('Expecting a title for the todo');    
-        // }
+        if (empty($title)) {
+            throw new NotFoundHttpException('Expecting a title for the todo');    
+        }
         $id = $this->todoRepository->saveTodo($title, $description,$timeNow);
         return new JsonResponse(['id' => $id, 'title'=> $title, 'description' => $description, 'addTime'=>$timeNow], Response::HTTP_CREATED);
     }

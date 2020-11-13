@@ -4,16 +4,16 @@
        
         
        
-
-            <input v-model="newTodo.title" type="text" placeholder="What needs to be done?"/>
-            <input v-model="newTodo.description" type="text" placeholder="Add a description"/>
+            <div class="input-wrapper">
+            <input class="input-title" v-model="newTodo.title" type="text" placeholder="What needs to be done?"/>
+            <input class="input-description" v-model="newTodo.description" type="text" placeholder="Add a description"/>
             <Button 
-                class="" 
+                class="save-button" 
                 @click="addTodo()">Save
             </Button>      
         
         
-        
+            </div>
         
     </div>
     <div class="right-container">
@@ -30,7 +30,7 @@
                         slot="leftBtn" 
                         @click="toggleTodo(item.id)">{{item.isDone}}
                     </Button>
-
+                    
                     <span slot="newTime">{{item.addTime.date}}</span>   
                     <span slot="doneTime" 
                     v-if="item.doneTime !== undefined && item.isDone">

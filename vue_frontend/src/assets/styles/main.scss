@@ -1,8 +1,16 @@
+html{
+    background-image: url("../terrazzo.jpg"); /* The image used */
+    background-color: #cccccc; /* Used if the image is unavailable */
+    height: 100vh; /* You must set a specified height */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
+}
 .app{
     margin: 0;
     height: 100vh;
+    
 }
-
 
 .grid-container{
     display: grid;
@@ -10,6 +18,9 @@
     height: 100vh;
     margin: 1em;
 }
+
+
+//formulario
 .left-container{
     display: flex;
     flex-direction: column;
@@ -20,10 +31,57 @@
     grid-column-end: 2;
     grid-row-start: 1;
     grid-row-end: 2;
-    background-color: grey;
-
-  
+ 
 }
+    .input{
+
+    &-wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 400px;
+    min-height: 400px;
+    background-color:  #86d7bcc9;
+    border-radius: 25px;
+    } 
+    &-title {
+        padding: 18px;
+        font-size: 15px;
+        border-radius: 18px;
+        border: 0;
+        margin-top: 3em;
+        width: 20em;
+        
+
+    }
+    &-description{
+        padding: 18px;
+        font-size: 15px;
+        border-radius: 18px;
+        border: 0;
+        height: 10em;
+        width: 20em;
+        
+    }
+}
+.save-button {
+    font-size: 14px;
+    padding: 18px;
+    border-radius: 21px;
+    background-color:#47a9ae;
+    color: white;
+    font-weight: bold;
+    border: 0;
+
+    &:hover {
+        cursor: pointer;
+        background-color:#0b4548;
+        }
+}
+
+
+//item list
 .right-container {
     display: flex;
     flex-direction: column;
@@ -34,7 +92,7 @@
     grid-column-end: 5;
     grid-row-start: 1;
     grid-row-end: 2;
-    background-color: blue;
+    // background-color: blue;
 }
 .item-container{
     display: flex;
@@ -42,4 +100,17 @@
     justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
+
+    &-block{
+        padding: 18px;
+        font-size: 15px;
+        border-radius: 18px;
+        border: 0;
+        margin-top: 1em;
+        margin-bottom: 1em;
+        width: 20em;
+        background-color: white;
+        justify-content: space-around;
+    }
+
 }

@@ -69,8 +69,9 @@ class TodoRepository extends ServiceEntityRepository
     }
 
     public function timeNow(){
-        $addDate = new DateTime("now");
-        $addDate->format("r");
+        $addDate = new DateTime();
+        $addDate->format('d-m-Y H:i');
+        
         return $addDate;
     }
 

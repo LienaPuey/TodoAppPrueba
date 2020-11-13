@@ -1,16 +1,16 @@
 <template>
     <div class="item-container">
-        <div class="">
-            <div class="">
+        <div class="item-container-block">
+            <div class="item-container-block-title">
                 <slot name="title"></slot>
             </div>
-            <div class="">
+            <div class="item-container-block-description">
                 <slot name="description"></slot> <!--contenido entre slots=valor default revisar la doc de vue slots-->
             </div>
-            <div class="">
+            <div class="item-container-block-addTime">
                 <slot name="newTime"></slot>
             </div>
-            <div class="">
+            <div class="item-container-block-doneTime">
                 <slot name="doneTime"></slot>
             </div>
             

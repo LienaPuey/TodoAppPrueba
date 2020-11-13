@@ -26,7 +26,7 @@
                     <span slot="description">{{item.description}}</span>
 
                     <Button 
-                        
+                        class="done-button"
                         slot="leftBtn" 
                         @click="toggleTodo(item.id)">{{item.isDone}}
                     </Button>
@@ -37,7 +37,7 @@
                     {{item.doneTime.date}}</span>
 
                     <Button 
-                        
+                        class="delete-button"
                         slot="rightBtn"  
                         @click="deleteTodo(item.id)">Delete
                     </Button>

@@ -5,6 +5,7 @@ html{
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size: cover;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .app{
     margin: 0;
@@ -42,7 +43,7 @@ html{
     align-items: center;
     width: 400px;
     min-height: 400px;
-    background-color:  #86d7bcc9;
+    background-color:  #86d7bcab;;
     border-radius: 25px;
     } 
     &-title {
@@ -62,6 +63,7 @@ html{
         border: 0;
         height: 10em;
         width: 20em;
+        text-align: justify;
         
     }
 }
@@ -76,10 +78,41 @@ html{
 
     &:hover {
         cursor: pointer;
-        background-color:#0b4548;
+        background-color:#0b4548c4;
         }
 }
+.delete-button {
+    font-size: 14px;
+    padding: 15px;
+    border-radius: 19px;
+    background-color: #9f7e8cde;
+    color: white;
+    font-weight: bold;
+    border: 0;
+    height: 40px;
+    width: 75px;
 
+    &:hover {
+        cursor: pointer;
+        background-color:#512538c9;
+        }
+}
+.done-button {
+    font-size: 14px;
+    padding: 15px;
+    border-radius: 19px;
+    background-color: hsl(29, 80%, 73%);
+    color: white;
+    font-weight: bold;
+    border: 0;
+    height: 40px;
+    width: 75px;
+    align-content: center;
+    &:hover {
+        cursor: pointer;
+        background-color:#ac3f1dbd;
+    }
+}
 
 //item list
 .right-container {
@@ -111,6 +144,21 @@ html{
         width: 20em;
         background-color: white;
         justify-content: space-around;
+        padding-bottom: 7px;
+
+        &-title{
+            font-size: 18px;
+            color:#595555;
+            
+        }
+        &-description{
+            font-size: 15px;
+            color: #645d5d;
+        }
+        &-time{
+            font-size: 10px;
+            color: #a86363;
+        }
     }
 
 }

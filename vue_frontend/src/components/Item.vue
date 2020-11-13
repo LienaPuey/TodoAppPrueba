@@ -7,10 +7,10 @@
             <div class="item-container-block-description">
                 <slot name="description"></slot> <!--contenido entre slots=valor default revisar la doc de vue slots-->
             </div>
-            <div class="item-container-block-addTime">
+            <div class="item-container-block-time">
                 <slot name="newTime"></slot>
             </div>
-            <div class="item-container-block-doneTime">
+            <div class="item-container-block-time">
                 <slot name="doneTime"></slot>
             </div>
             

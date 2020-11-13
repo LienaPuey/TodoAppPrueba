@@ -1,5 +1,5 @@
 <template>
-    <div class="todo-list">
+    <div class="">
         <slot></slot>
     </div>
 </template>
@@ -10,8 +10,3 @@ export default {
 }
 </script>
 
-<style scoped>
-.todo-list {
-    flex: 1;
-}
-</style>

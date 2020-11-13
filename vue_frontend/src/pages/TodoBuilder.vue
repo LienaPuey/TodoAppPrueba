@@ -1,15 +1,32 @@
 <template>
-    <div>
-        <List class="todo-list">
+<div class="grid-container">
+    <div class="left-container">
+       
+        
+       
+
+            <input v-model="newTodo.title" type="text" placeholder="What needs to be done?"/>
+            <input v-model="newTodo.description" type="text" placeholder="Add a description"/>
+            <Button 
+                class="" 
+                @click="addTodo()">Save
+            </Button>      
+        
+        
+        
+        
+    </div>
+    <div class="right-container">
+        <List>
             <Item 
                 v-for="item in filteredTodos" 
                 v-bind:key="item.id">
-
+                    
                     <span slot="title">{{item.title}}</span>
                     <span slot="description">{{item.description}}</span>
 
                     <Button 
-                        class="app-button"
+                        
                         slot="leftBtn" 
                         @click="toggleTodo(item.id)">{{item.isDone}}
                     </Button>
@@ -20,22 +37,16 @@
                     {{item.doneTime.date}}</span>
 
                     <Button 
-                        class="app-button"
+                        
                         slot="rightBtn"  
                         @click="deleteTodo(item.id)">Delete
                     </Button>
+                    
             </Item>
         </List>
-        <div class="input">
-
-            <input v-model="newTodo.title" type="text" placeholder="What needs to be done?"/>
-            <input v-model="newTodo.description" type="text" placeholder="Add a description"/>
-            <Button 
-                v-bind:class="{white:true}" 
-                @click="addTodo()">Save
-            </Button>      
-        </div>
-        <Button @click="toggleFilter()">Show done To-Dos</Button>
+        <!-- <Button @click="toggleFilter()">Show done To-Dos</Button> -->
+        
+    </div>
     </div>
 </template>
 
@@ -44,7 +55,7 @@ import List from "../components/List.vue";
 import Item from "../components/Item.vue";
 import Button from "../components/Button.vue";
 import TodoService from '../services/TodoService';
-
+require('../assets/styles/main.scss');
 export default {
     name: 'Todos',
     async mounted() {
@@ -57,14 +68,15 @@ export default {
         filteredTodos(){
             if(!this.filter) return this.todos;
             return this.todos.filter(todo=>!todo.isDone);
-        }
+        }//crearle una seccion a la derecha sin botón
     },
     data(){
         return {
             todos: [],
             newTodo: {
                 title: '',
-                description: ''},
+                description: '',
+                isDone: false},
             filter: true
             }
         },
@@ -78,6 +90,7 @@ export default {
             this.filter = !this.filter;
         },
         async addTodo(){
+            
             const newTodo = await TodoService.addTodo(this.newTodo.title, this.newTodo.description);
             if(newTodo.id){
                 const newTodos = [...this.todos, newTodo];
@@ -111,23 +124,3 @@ export default {
 }
 
 </script>
-
-
-<style scoped>
-.todoContainer{
-    display:flex;
-    flex-direction:column;
-  }
-  .input{
-    display:flex;
-    flex-direction:row;
-  }
-  li{
-    display:flex;
-    flex-direction:row;
-  }
-  span{
-    margin-left:0.1sem;
-    margin-right:0.1em;
-  }
-</style>

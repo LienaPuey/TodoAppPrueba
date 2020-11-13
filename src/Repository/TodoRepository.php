@@ -40,6 +40,7 @@ class TodoRepository extends ServiceEntityRepository
         $this->manager->persist($newTodo);
         $this->manager->flush();
         return $newTodo->getId();
+
     }
 
     public function toggle($id){
@@ -72,6 +73,7 @@ class TodoRepository extends ServiceEntityRepository
         $addDate->format("r");
         return $addDate;
     }
+
     // /**
     //  * @return Todo[] Returns an array of Todo objects
     //  */

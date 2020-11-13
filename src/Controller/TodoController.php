@@ -39,7 +39,7 @@ use Symfony\Component\Routing\Annotation\Route;
             throw new NotFoundHttpException('Expecting a title for the todo');    
         }
         $id = $this->todoRepository->saveTodo($title, $description,$timeNow);
-        return new JsonResponse(['status' => 'Created', 'id' => $id], Response::HTTP_CREATED);
+        return new JsonResponse(['id' => $id, 'title'=> $title, 'description' => $description, 'addTime'=>$timeNow], Response::HTTP_CREATED);
     }
  
 
@@ -60,7 +60,8 @@ use Symfony\Component\Routing\Annotation\Route;
                 "title"=>$todo->getTitle(),
                 "description"=>$todo->getDescription(),
                 "isDone"=>$todo->getIsDone(),
-                "addTime"=>$todo->getAddTime()
+                "addTime"=>$todo->getAddTime(),
+                "doneTime" =>$todo->getDoneTime()
             ];
             
         }
@@ -83,7 +84,7 @@ use Symfony\Component\Routing\Annotation\Route;
         if (empty($todo)) {
             throw new NotFoundHttpException("Id not found");
         }
-        return new JsonResponse(['status' =>$todo->getisDone()], Response::HTTP_OK);
+        return new JsonResponse(['status' =>$todo->getIsDone(), 'doneTime' =>$todo->getDoneTime()], Response::HTTP_OK);
     }       
 
 

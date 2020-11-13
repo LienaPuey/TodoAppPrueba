@@ -1,5 +1,5 @@
 <script>
-import axios from 'aixos';
+import axios from 'axios';
 //axios.defaults.baseURL = 'api';
 export default{
     async addTodo(title, description){
@@ -23,11 +23,8 @@ export default{
         const response = await axios.get('/api/list', {
             headers: { 'Content-Type' : 'aplication/json'}
         });
-        return response.data.data;
+        return response.data.data;//json devuelve data siempre, el otro data es el del controlador, cuidado aquí
     }
-
-
-
 
 
 }

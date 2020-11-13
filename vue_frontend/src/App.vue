@@ -1,12 +1,12 @@
 <template>
   <div id="app">
    
-    <Todo />
+    <TodoBuilder />
   </div>
 </template>
 
 <script>
-import TodoBuilder from './components/TodoBuilder.vue'
+import TodoBuilder from './pages/TodoBuilder.vue'
 
 export default {
   name: 'App',

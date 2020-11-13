@@ -50,7 +50,7 @@ export default {
     async mounted() {
         const todos = await TodoService.getTodos();
         if(todos){
-            this.todos=todos;
+            this.todos = todos;
         }
     },
     computed: {
@@ -96,15 +96,38 @@ export default {
             }
         },
 
-        async deleteTodo(){
-            //chequear como hace vue para que reconozca los objetos nuevos
-            
+        async deleteTodo(id){
+            if(await TodoService.deleteTodo(id)){
+                // Para que el comparador del dom virtual de VUE distinga que los objetos son nuevos y por ende distintos, forzando un refresh
+             // si se hace todo sobre this.todos, la referencia no cambia y no vuelve a renderizar
+                let newTodos = [...this.todos];
+                const index = newTodos.findIndex(todo => todo.id == id);
+                newTodos.splice(index, 1);
+                this.todos = newTodos;
+            }
         }
 
     }
 }
+
 </script>
 
 
 <style scoped>
+.todoContainer{
+    display:flex;
+    flex-direction:column;
+  }
+  .input{
+    display:flex;
+    flex-direction:row;
+  }
+  li{
+    display:flex;
+    flex-direction:row;
+  }
+  span{
+    margin-left:0.1sem;
+    margin-right:0.1em;
+  }
 </style>

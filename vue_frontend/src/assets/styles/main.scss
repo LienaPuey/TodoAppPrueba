@@ -3,9 +3,12 @@ html{
     background-color: #cccccc; /* Used if the image is unavailable */
     height: 100vh; /* You must set a specified height */
     background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Do not repeat the image */
+    background-repeat: repeat;
     background-size: cover;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+textarea{
+    resize: none;
 }
 .app{
     margin: 0;
@@ -57,6 +60,7 @@ html{
 
     }
     &-description{
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
         padding: 18px;
         font-size: 15px;
         border-radius: 18px;
@@ -81,7 +85,7 @@ html{
         background-color:#0b4548c4;
         }
 }
-.delete-button {
+.done-button {
     font-size: 14px;
     padding: 15px;
     border-radius: 19px;
@@ -91,13 +95,13 @@ html{
     border: 0;
     height: 40px;
     width: 75px;
-
+    float:left;
     &:hover {
         cursor: pointer;
         background-color:#512538c9;
         }
 }
-.done-button {
+.delete-button {
     font-size: 14px;
     padding: 15px;
     border-radius: 19px;
@@ -113,7 +117,24 @@ html{
         background-color:#ac3f1dbd;
     }
 }
-
+.show-button{
+    float: center;
+    font-size: 14px;
+    padding: 15px;
+    border-radius: 19px;
+    background-color: hsl(29, 80%, 73%);
+    color: white;
+    font-weight: bold;
+    border: 0;
+    height: 40px;
+    width: 210px;
+    align-content: center;
+    margin-bottom:10px;
+    &:hover {
+        cursor: pointer;
+        background-color:#ac3f1dbd;
+    }
+}
 //item list
 .right-container {
     display: flex;
@@ -125,7 +146,18 @@ html{
     grid-column-end: 5;
     grid-row-start: 1;
     grid-row-end: 2;
-    // background-color: blue;
+    
+}
+.item-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    min-width: 400px;
+    min-height: 400px;
+    background-color:  #86d7bcab;;
+    border-radius: 25px;
 }
 .item-container{
     display: flex;
@@ -141,7 +173,7 @@ html{
         border: 0;
         margin-top: 1em;
         margin-bottom: 1em;
-        width: 20em;
+        width: 14em;
         background-color: white;
         justify-content: space-around;
         padding-bottom: 7px;
@@ -160,5 +192,5 @@ html{
             color: #a86363;
         }
     }
-
+   
 }

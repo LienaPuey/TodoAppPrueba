@@ -6,7 +6,7 @@
        
             <div class="input-wrapper">
             <input class="input-title" v-model="newTodo.title" type="text" placeholder="What needs to be done?"/>
-            <input class="input-description" v-model="newTodo.description" type="text" placeholder="Add a description"/>
+            <textarea class="input-description" v-model="newTodo.description" type="text" placeholder="Add a description"/>
             <Button 
                 class="save-button" 
                 @click="addTodo()">Save
@@ -33,7 +33,7 @@
                     
                     <span slot="newTime">{{item.addTime.date}}</span>   
                     <span slot="doneTime" 
-                    v-if="item.doneTime !== undefined && item.isDone">
+                    v-if="item.doneTime !== undefined && item.isDone ===true">
                     {{item.doneTime.date}}</span>
 
                     <Button 
@@ -43,8 +43,11 @@
                     </Button>
                     
             </Item>
+           
+            <Button class="show-button" @click="toggleFilter()">Show finished To-Dos</Button>
+            
         </List>
-        <!-- <Button @click="toggleFilter()">Show done To-Dos</Button> -->
+        
         
     </div>
     </div>
@@ -66,8 +69,11 @@ export default {
     },
     computed: {
         filteredTodos(){
-            if(!this.filter) return this.todos;
+            if(this.filter) {
+            return this.todos
+            }else{
             return this.todos.filter(todo=>!todo.isDone);
+            }
         }//crearle una seccion a la derecha sin botón
     },
     data(){
@@ -91,7 +97,7 @@ export default {
         },
         async addTodo(){
             
-            const newTodo = await TodoService.addTodo(this.newTodo.title, this.newTodo.description);
+            const newTodo = await TodoService.addTodo(this.newTodo.title, this.newTodo.description, this.newTodo.isDone);
             if(newTodo.id){
                 const newTodos = [...this.todos, newTodo];
                 this.todos = newTodos;

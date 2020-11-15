@@ -1,11 +1,5 @@
 <template>
-<div class="app">
-  <div >
-    
-      <TodoBuilder />
-    
-  </div>
-</div>
+<TodoBuilder />
 </template>
 
 <script>

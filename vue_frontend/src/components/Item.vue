@@ -13,10 +13,10 @@
             <div class="item-container-block-time">
                 <slot name="doneTime"></slot>
             </div>
-            
+            <div class="item-buttons">
             <slot name="leftBtn"></slot>
             <slot name="rightBtn"></slot>
-            
+            </div>
         </div>
     </div>
 </template>

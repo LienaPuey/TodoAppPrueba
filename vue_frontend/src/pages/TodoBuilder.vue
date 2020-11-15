@@ -1,36 +1,41 @@
 <template>
 <div class="grid-container">
     <div class="left-container">
-       
-        
-       
-            
-            <form class="input-wrapper" >
-            <input class="input-title" v-model="newTodo.title" type="text" placeholder="What needs to be done?"/>
-            <textarea class="input-description" v-model="newTodo.description" type="text" placeholder="Add a description"/>
+    
+    <div class="input-wrapper">                        
+        <input class="input-title" v-model="newTodo.title" type="text" placeholder="What needs to be done?"/>
+        <textarea class="input-description" v-model="newTodo.description" type="text" placeholder="Add a description"/>
             
             <Button 
-                class="save-button" 
+                class="save" 
                 @click="addTodo()">Save
             </Button>      
-            </form>
-        
-           
-        
+    </div>   
+                  
     </div>
     <div class="right-container">
-        <List>
+        <Button class="show" @click="toggleFilter()" v-if="!filter">Show unfinished To-Dos</Button>
+        <Button class="show" @click="toggleFilter()" v-else>Show all To-Dos</Button>
+
+        <List>           
             <Item 
                 v-for="item in filteredTodos" 
                 v-bind:key="item.id">
                     
                     <span slot="title">{{item.title}}</span>
                     <span slot="description">{{item.description}}</span>
-
+                    
                     <Button 
-                        class="done-button"
+                        class="done"
                         slot="leftBtn" 
-                        @click="toggleTodo(item.id)">{{item.isDone}}
+                        @click="toggleTodo(item.id)"
+                        v-if="item.isDone === true">{{undone}}
+                    </Button>
+                    <Button 
+                        class="done"
+                        slot="leftBtn" 
+                        @click="toggleTodo(item.id)"
+                        v-else>{{done}}
                     </Button>
                     
                     <span slot="newTime">Added date:{{item.addTime.date}}</span>   
@@ -39,18 +44,14 @@
                     {{item.doneTime.date}}</span>
 
                     <Button 
-                        class="delete-button"
+                        class="delete"
                         slot="rightBtn"  
                         @click="deleteTodo(item.id)">Delete
                     </Button>
                     
-            </Item>
-           
-            <Button class="show-button" @click="toggleFilter()">Show finished To-Dos</Button>
-            
+            </Item>            
         </List>
-        
-        
+    
     </div>
     </div>
 </template>
@@ -71,22 +72,21 @@ export default {
     },
     computed: {
         filteredTodos(){
-            if(!this.filter) {
-            return this.todos
-            }else{
+            if(!this.filter) return this.todos;
             return this.todos.filter(todo=>!todo.isDone);
-            }
         }//crearle una seccion a la derecha sin botón
     },
     data(){
         return {
-            todos: [],
-            newTodo: {
-                title: '',
-                description: '',
-                isDone: false,
-                filter: true
-                }
+                todos: [],
+                newTodo: {
+                    title: '',
+                    description: '',
+                    isDone: false               
+                },
+                filter: false,
+                done: "Done",
+                undone: "Undone"
             }
         },
     components: {
@@ -103,13 +103,15 @@ export default {
         async addTodo(){
             
             const newTodo = await TodoService.addTodo(this.newTodo.title, this.newTodo.description, this.newTodo.isDone);
-            if(newTodo.id){
+            if (this.newTodo.title.length < 4) {
+                alert('Title must be longer!');
+
+            } else if(newTodo.id){
                 const newTodos = [...this.todos, newTodo];
                 this.todos = newTodos;
-                console.log(typeof newTodo);
-                this.resetform();
+                
             }
-            this.data.newTodo= '';
+            this.newTodo = {title:'', description:''}
         },
 
         async toggleTodo(id){

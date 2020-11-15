@@ -4,16 +4,18 @@
        
         
        
-            <div class="input-wrapper">
+            
+            <form class="input-wrapper" >
             <input class="input-title" v-model="newTodo.title" type="text" placeholder="What needs to be done?"/>
             <textarea class="input-description" v-model="newTodo.description" type="text" placeholder="Add a description"/>
+            
             <Button 
                 class="save-button" 
                 @click="addTodo()">Save
             </Button>      
+            </form>
         
-        
-            </div>
+           
         
     </div>
     <div class="right-container">
@@ -31,9 +33,9 @@
                         @click="toggleTodo(item.id)">{{item.isDone}}
                     </Button>
                     
-                    <span slot="newTime">{{item.addTime.date}}</span>   
+                    <span slot="newTime">Added date:{{item.addTime.date}}</span>   
                     <span slot="doneTime" 
-                    v-if="item.doneTime !== undefined && item.isDone ===true">
+                    v-if="item.doneTime !== undefined && item.isDone ===true">Done date:
                     {{item.doneTime.date}}</span>
 
                     <Button 
@@ -69,7 +71,7 @@ export default {
     },
     computed: {
         filteredTodos(){
-            if(this.filter) {
+            if(!this.filter) {
             return this.todos
             }else{
             return this.todos.filter(todo=>!todo.isDone);
@@ -82,8 +84,9 @@ export default {
             newTodo: {
                 title: '',
                 description: '',
-                isDone: false},
-            filter: true
+                isDone: false,
+                filter: true
+                }
             }
         },
     components: {
@@ -92,6 +95,8 @@ export default {
         Button
         },
     methods: {
+        
+
         toggleFilter(){
             this.filter = !this.filter;
         },
@@ -101,8 +106,10 @@ export default {
             if(newTodo.id){
                 const newTodos = [...this.todos, newTodo];
                 this.todos = newTodos;
-                this.newTodo= '';
+                console.log(typeof newTodo);
+                this.resetform();
             }
+            this.data.newTodo= '';
         },
 
         async toggleTodo(id){
@@ -119,14 +126,15 @@ export default {
             if(await TodoService.deleteTodo(id)){
                 // Para que el comparador del dom virtual de VUE distinga que los objetos son nuevos y por ende distintos, forzando un refresh
              // si se hace todo sobre this.todos, la referencia no cambia y no vuelve a renderizar
+            
                 let newTodos = [...this.todos];
                 const index = newTodos.findIndex(todo => todo.id == id);
                 newTodos.splice(index, 1);
                 this.todos = newTodos;
             }
         }
-
     }
+        
 }
 
 </script>

@@ -74,7 +74,7 @@ export default {
         filteredTodos(){
             if(!this.filter) return this.todos;
             return this.todos.filter(todo=>!todo.isDone);
-        }//crearle una seccion a la derecha sin botón
+        }
     },
     data(){
         return {
